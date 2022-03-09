@@ -21,11 +21,15 @@ const order = Array.from({ length: dev.length }, (x, i) => i + 1);
 
 const $container = document.querySelector('.container');
 const $startBtn = document.querySelector('#game_start_btn');
+const $controller = document.querySelector('.controller');
+
 $startBtn.addEventListener('click', (e) => {
-  // 1) button 사라짐
-  // 2) 사다리 만들어짐
-  e.target.style.display = 'none';
+  e.target.classList.add('hidden');
+  $controller.classList.remove('hidden');
   renderLabels(dev, order);
+  order.forEach((_, index) => {
+    renderLine(index);
+  });
 });
 
 function renderLabels(dev, order) {
@@ -37,4 +41,12 @@ function renderLabels(dev, order) {
   });
 
   $container.innerHTML = `<div class="start-row">${start}</div><div class="end-row">${end}</div>`;
+}
+
+function renderLine(posX) {
+  ctx.beginPath();
+  ctx.lineWidth = 5;
+  ctx.moveTo(60 + 120 * posX, 30);
+  ctx.lineTo(60 + 120 * posX, 770);
+  ctx.stroke();
 }
