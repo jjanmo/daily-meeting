@@ -17,8 +17,24 @@ const dev = [
 ];
 const order = Array.from({ length: dev.length }, (x, i) => i + 1);
 
-console.log(order, suffle(order));
+// console.log(order, suffle(order));
 
 const $container = document.querySelector('.container');
-const $startBtn = document.querySelector('#start_btn');
-$startBtn.addEventListener('click', () => {});
+const $startBtn = document.querySelector('#game_start_btn');
+$startBtn.addEventListener('click', (e) => {
+  // 1) button 사라짐
+  // 2) 사다리 만들어짐
+  e.target.style.display = 'none';
+  renderLabels(dev, order);
+});
+
+function renderLabels(dev, order) {
+  let start = '',
+    end = '';
+  dev.forEach((name, index) => {
+    start += `<div class="label">${name}</div>`;
+    end += `<div class="label">${order[index]}</div>`;
+  });
+
+  $container.innerHTML = `<div class="start-row">${start}</div><div class="end-row">${end}</div>`;
+}
